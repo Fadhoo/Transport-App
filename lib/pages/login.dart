@@ -51,7 +51,10 @@ class _LoginContentState extends State<_LoginContent> {
                 margin: EdgeInsets.all(10.0),
                 padding: EdgeInsets.all(10.0),
 //              color: Colors.grey,
-                child: signInForm(),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 50),
+                  child: signInForm(),
+                ),
               ),
             )
           ],
@@ -100,32 +103,33 @@ class _LoginContentState extends State<_LoginContent> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(8),
-            child: TextFormField(
-              style: TextStyle(fontSize: 20.0),
-              textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                  hintText: "Type in here", border: OutlineInputBorder()),
-            ),
-          ),
+              padding: EdgeInsets.all(4),
+              child: Card(
+                  elevation: 8,
+                  margin: EdgeInsets.all(8),
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: TextFormField(
+                      style: TextStyle(fontSize: 20.0),
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                          hintText: "Type in here", border: InputBorder.none),
+                    ),
+                  ))),
           Padding(
-            padding: EdgeInsets.all(8),
-            child: TextFormField(
-              style: TextStyle(fontSize: 20.0),
-              textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                  hintText: "Type in here", border: OutlineInputBorder()),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(8),
-            child: TextFormField(
-              style: TextStyle(fontSize: 20.0),
-              textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                  hintText: "Type in here", border: OutlineInputBorder()),
-            ),
-          ),
+              padding: EdgeInsets.all(4),
+              child: Card(
+                  elevation: 8,
+                  margin: EdgeInsets.all(8),
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: TextFormField(
+                      style: TextStyle(fontSize: 20.0),
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                          hintText: "Type in here", border: InputBorder.none),
+                    ),
+                  ))),
           Padding(
             padding: EdgeInsets.all(8),
             child: SizedBox(
