@@ -50,7 +50,6 @@ class _LoginContentState extends State<_LoginContent> {
               child: Container(
                 margin: EdgeInsets.all(10.0),
                 padding: EdgeInsets.all(10.0),
-//              color: Colors.grey,
                 child: Padding(
                   padding: EdgeInsets.only(top: 50),
                   child: getCurrentForm(isSignInToggle),
