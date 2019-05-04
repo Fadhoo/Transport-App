@@ -53,7 +53,7 @@ class _LoginContentState extends State<_LoginContent> {
 //              color: Colors.grey,
                 child: Padding(
                   padding: EdgeInsets.only(top: 50),
-                  child: signInForm(),
+                  child: getCurrentForm(isSignInToggle),
                 ),
               ),
             )
@@ -61,6 +61,9 @@ class _LoginContentState extends State<_LoginContent> {
         ),
       ),
     );
+  }
+  Widget getCurrentForm(bool isToggled) {
+    return (isToggled) ? signInForm() : registerForm();
   }
 
   Widget getButtonTab(String title, bool isToggled) {
@@ -70,17 +73,21 @@ class _LoginContentState extends State<_LoginContent> {
       textColor: Colors.white,
       color: Colors.green,
       onPressed: () {
-        toggleContent();
+        if (!isToggled) {
+          toggleContent();
+        }
       },
       child: Text(title),
     );
     Widget flatButton = FlatButton(
         onPressed: () {
-          toggleContent();
+          if (!isToggled) {
+            toggleContent();
+          }
         },
         child: Text(title));
 
-    return (isToggled) ? flatButton : raisedButton;
+    return (isToggled) ? raisedButton : flatButton ;
   }
 
   toggleContent() {
@@ -93,6 +100,80 @@ class _LoginContentState extends State<_LoginContent> {
     Scaffold.of(context).showSnackBar(SnackBar(
       content: Text('Tap'),
     ));
+  }
+
+  Widget registerForm() {
+    return Form(
+      key: _loginContentKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+              padding: EdgeInsets.all(4),
+              child: Card(
+                  elevation: 8,
+                  margin: EdgeInsets.all(8),
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      style: TextStyle(fontSize: 20.0),
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                          hintText: "Name", border: InputBorder.none),
+                    ),
+                  ))),
+          Padding(
+              padding: EdgeInsets.all(4),
+              child: Card(
+                  elevation: 8,
+                  margin: EdgeInsets.all(8),
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      style: TextStyle(fontSize: 20.0),
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                          hintText: "Email", border: InputBorder.none),
+                    ),
+                  ))),
+          Padding(
+              padding: EdgeInsets.all(4),
+              child: Card(
+                  elevation: 8,
+                  margin: EdgeInsets.all(8),
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: TextFormField(
+                      style: TextStyle(fontSize: 20.0),
+                      obscureText: true,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                          hintText: "Password", border: InputBorder.none),
+                    ),
+                  ))),
+          Padding(
+            padding: EdgeInsets.all(8),
+            child: SizedBox(
+              height: 48,
+              width: double.infinity,
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed("/home");
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                textColor: Colors.white,
+                color: Colors.green,
+                child: Text(_LoginContentState.registerText),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   Widget signInForm() {
@@ -110,10 +191,11 @@ class _LoginContentState extends State<_LoginContent> {
                   child: Padding(
                     padding: EdgeInsets.all(8),
                     child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 20.0),
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
-                          hintText: "Type in here", border: InputBorder.none),
+                          hintText: "Email", border: InputBorder.none),
                     ),
                   ))),
           Padding(
@@ -125,9 +207,10 @@ class _LoginContentState extends State<_LoginContent> {
                     padding: EdgeInsets.all(8),
                     child: TextFormField(
                       style: TextStyle(fontSize: 20.0),
+                      obscureText: true,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
-                          hintText: "Type in here", border: InputBorder.none),
+                          hintText: "Password", border: InputBorder.none),
                     ),
                   ))),
           Padding(
@@ -136,13 +219,13 @@ class _LoginContentState extends State<_LoginContent> {
               height: 48,
               width: double.infinity,
               child: RaisedButton(
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed("/home");
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8))),
                 textColor: Colors.white,
                 color: Colors.green,
-                onPressed: () {
-                  toggleContent();
-                },
                 child: Text(_LoginContentState.signInText),
               ),
             ),
