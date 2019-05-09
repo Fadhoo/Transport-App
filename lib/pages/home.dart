@@ -1,88 +1,227 @@
 import 'package:flutter/material.dart';
-import 'package:transport_app/models/company.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Trans App"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.view_list,
-              color: Colors.white70,
+    return _HomeContent();
+  }
+}
+
+class _HomeContent extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _HomeContentState();
+  }
+}
+
+class _HomeContentState extends State<_HomeContent> {
+  @override
+  Widget build(BuildContext context) {
+    return _content(context);
+  }
+
+  Widget _content(BuildContext context) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints viewportConstraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints:
+                BoxConstraints(maxHeight: viewportConstraints.maxHeight),
+            child: Container(
+              height: double.infinity,
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: 25, bottom: 25),
+                      child: Center(
+                          child: Container(
+                        child: Hero(
+                          tag: 'searchCardHero',
+                          child: Material(
+                            child: Card(
+                                shape: StadiumBorder(),
+                                elevation: 8,
+                                margin: EdgeInsets.all(8),
+                                child: InkWell(
+                                  onTap: () {
+                                    openSearchPage();
+                                  },
+                                  customBorder: StadiumBorder(),
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 2.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          flex: 8,
+                                          child: TextFormField(
+                                            style: TextStyle(fontSize: 20.0),
+                                            textInputAction:
+                                                TextInputAction.search,
+                                            enabled: false,
+                                            decoration: InputDecoration(
+                                                hintText: "Search",
+                                                border: InputBorder.none),
+                                          ),
+                                        ),
+                                        CircleAvatar(
+                                          backgroundColor: Colors.grey,
+                                          child: InkWell(
+                                            customBorder: CircleBorder(),
+                                            onTap: () {
+                                              showSnackBar(s: 'Open Profile');
+                                            },
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )),
+                          ),
+                        ),
+                      )),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 25, bottom: 25),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0)),
+                        elevation: 8,
+                        margin: EdgeInsets.all(8),
+                        color: Colors.yellowAccent,
+                        child: cardContent(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            onPressed: null,
+          ),
+        );
+      },
+    );
+  }
+
+  Widget cardContent() {
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[destinationRow(), detailsRow(), busDetails()],
+      ),
+    );
+  }
+
+  Widget busDetails() {
+    return Padding(
+      padding: EdgeInsets.only(top: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            "Transport",
+            style: TextStyle(fontSize: 14),
+          ),
+          Text(
+            "MNT",
+            style: TextStyle(fontSize: 22),
           ),
         ],
       ),
-      body: _MainContent(),
-    );
-  }
-}
-
-class _MainContent extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _CompanyListState();
-  }
-}
-
-class _CompanyListState extends State<_MainContent> {
-  List<Company> data = dummyData;
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
-      childAspectRatio: 0.70,
-      physics: BouncingScrollPhysics(),
-      crossAxisCount: 2,
-      children: List.generate(data.length, (index) {
-        return _buildGrid(data[index]);
-      }),
     );
   }
 
-  Widget _buildGrid(Company data) {
-    return Card(
-        child: InkWell(
-          onTap: () {
-            _showSnackBar();
-          },
+  Widget detailsRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Text(
+              "Depart",
+              style: TextStyle(fontSize: 12),
+            ),
+            Text("17:00",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+          ],
+        ),
+        Column(
+          children: <Widget>[
+            Text(
+              "Arrive",
+              style: TextStyle(fontSize: 12),
+            ),
+            Text("02:00",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+          ],
+        ),
+        Column(
+          children: <Widget>[
+            Text(
+              "Terminal",
+              style: TextStyle(fontSize: 12),
+            ),
+            Text("3",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget destinationRow() {
+    return Row(
+      children: <Widget>[
+        Expanded(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Expanded(
-                flex: 7,
-                child: Container(
-                  child: Image.network(
-                    data.imageUrl,
-                    fit: BoxFit.fill,
-                  ),
-                ),
+              Text(
+                "Lagos",
+                style: TextStyle(fontSize: 20),
               ),
-              Expanded(
-                flex: 3,
-                child: Container(
-                  child: Center(
-                    child: Text(
-                      data.name,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-                  ),
-                ),
-              ),
+              Text(
+                "LAG",
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              )
             ],
           ),
         ),
-      );
+        Expanded(
+          child: Container(
+            child: Icon(
+              Icons.arrow_forward,
+              size: 40,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Column(
+            children: <Widget>[
+              Text(
+                "Kaduna",
+                style: TextStyle(fontSize: 20),
+              ),
+              Text(
+                "KAD",
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+        )
+      ],
+    );
   }
 
-  _showSnackBar() {
+  void openSearchPage() {
+    Navigator.of(context).pushNamed('/search');
+  }
+
+  void showSnackBar({String s = 'Tap'}) {
     Scaffold.of(context).showSnackBar(SnackBar(
-      content: Text('Tap'),
+      content: Text(s),
     ));
   }
 }

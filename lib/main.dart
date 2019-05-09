@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:transport_app/pages/search.dart';
 
 import 'pages/login.dart';
-import 'pages/home.dart';
+import 'pages/index.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,11 +13,13 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       routes: <String, WidgetBuilder>{
         "/": (BuildContext context) => LoginPage(),
-        "/home": (BuildContext context) => HomePage(),
+        "/index": (BuildContext context) => IndexPage(),
+        "/search": (BuildContext context) => SearchPage(),
       },
       title: "Transport App",
       theme: ThemeData(
-          primarySwatch: Colors.teal, accentColor: Colors.yellowAccent),
+          primaryColor: Colors.green,
+          accentColor: Colors.yellowAccent),
     );
   }
 }

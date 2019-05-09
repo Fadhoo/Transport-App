@@ -61,6 +61,7 @@ class _LoginContentState extends State<_LoginContent> {
       ),
     );
   }
+
   Widget getCurrentForm(bool isToggled) {
     return (isToggled) ? signInForm() : registerForm();
   }
@@ -86,7 +87,7 @@ class _LoginContentState extends State<_LoginContent> {
         },
         child: Text(title));
 
-    return (isToggled) ? raisedButton : flatButton ;
+    return (isToggled) ? raisedButton : flatButton;
   }
 
   toggleContent() {
@@ -160,7 +161,7 @@ class _LoginContentState extends State<_LoginContent> {
               width: double.infinity,
               child: RaisedButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacementNamed("/home");
+                  Navigator.of(context).pushReplacementNamed("/index");
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8))),
@@ -219,7 +220,7 @@ class _LoginContentState extends State<_LoginContent> {
               width: double.infinity,
               child: RaisedButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacementNamed("/home");
+                  Navigator.of(context).pushReplacementNamed("/index");
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8))),
