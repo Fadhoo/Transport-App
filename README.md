@@ -1,6 +1,6 @@
 # transport_app
 
-A Transport payment application.
+A Transport payment application, with various terminals and tranport services to choose from.
 
 ## Getting Started
 
